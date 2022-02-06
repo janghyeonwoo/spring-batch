@@ -1,21 +1,29 @@
+
 spring:
   batch:
     jdbc:
       initialize-schema: always
+#Program arguments로 job.name 값이 넘어오면 해당 값과 일치하는 Job만 실행하겠다,
+#job.name이 있으면 job.name값을 할당하고, 없으면 NONE을 할당하겠다는 의미
+    job:
+      names: ${job.name:NONE}
 
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/test?serverTimezone=Asia/Seoul
+    driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+    url: jdbc:log4jdbc:mysql://localhost:3306/springbatch?serverTimezone=Asia/Seoul
     username: root
     password: 12345
 
-  jpa:
-    open-in-view: true
-    hibernate:
-      ddl-auto: create
-      naming:
-        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
-      use-new-id-generator-mappings: false
-    show-sql: true
-    properties:
-      hibernate.format_sql: true
+
+#  jpa:
+#    open-in-view: true
+#    hibernate:
+#      ddl-auto: create
+#      naming:
+#        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+#      use-new-id-generator-mappings: false
+#    show-sql: true
+#    properties:
+server:
+  port: 8900
+#      hibernate.format_sql: true
